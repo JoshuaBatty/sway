@@ -2,6 +2,8 @@ mod harness;
 use fuel_vm::prelude::*;
 
 pub fn run(filter_regex: Option<regex::Regex>) {
+    std::env::set_var("RUST_BACKTRACE", "1");
+    
     let filter = |name| {
         filter_regex
             .as_ref()
@@ -82,6 +84,7 @@ pub fn run(filter_regex: Option<regex::Regex>) {
         ("tuple_indexing", ProgramState::Return(1)),
         ("tuple_access", ProgramState::Return(42)),
         ("funcs_with_generic_types", ProgramState::Return(1)), // true
+        ("pow_uint", ProgramState::Return(1)), // true
     ];
 
     let mut number_of_tests_run = positive_project_names.iter().fold(0, |acc, (name, res)| {
